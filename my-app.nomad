@@ -33,8 +33,8 @@ job "hello-world" {
         ports = ["web"]
       }
     }
-      env {
-              TAG = "${TAG}"
+      variable "TAG" {
+    type = string
   }
   }
 }
