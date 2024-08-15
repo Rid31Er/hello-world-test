@@ -1,12 +1,14 @@
 job "hello-world" {
   type = "service"
 
-      variable "TAG" {
+  # Declare variables at the job level
+  variable "TAG" {
     type = string
   }
 
   group "hello-world-web" {
     count = 1
+
     network {
       port "web" {
         static = 8000
@@ -37,7 +39,5 @@ job "hello-world" {
         ports = ["web"]
       }
     }
-
   }
-
 }
