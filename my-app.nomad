@@ -3,7 +3,7 @@ job "hello-world" {
 
   # Declare variables at the job level
   variable "TAG" {
-    type = string
+    type = var
   }
 
   group "hello-world-web" {
