@@ -37,7 +37,13 @@ jobs:
         TAG=${{ steps.set-tag-name.outputs.tag }}
         docker build -t ridhwan31/hello-world-test:$TAG .
         docker push ridhwan31/hello-world-test:$TAG
-
+        
+    - name: Install Nomad CLI
+      run: |
+        curl -Lo nomad.zip https://releases.hashicorp.com/nomad/1.4.4/nomad_1.4.4_linux_amd64.zip
+        unzip nomad.zip
+        sudo mv nomad /usr/local/bin/
+        rm nomad.zip
        
     - name: Deploy to Nomad
       env:
