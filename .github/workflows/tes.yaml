@@ -1,0 +1,51 @@
+name: Deploy to nomad
+
+on:
+  push:
+    branches:
+      - main
+      - live
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Set the tag name
+      id: set-tag-name
+      run: |
+        if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+          echo "::set-output name=tag::dev"
+        else
+          echo "::set-output name=tag::live"
+        fi
+
+    - name: Build and push Docker image
+      run: |
+        TAG=${{ steps.set-tag-name.outputs.tag }}
+        docker build -t ridhwan31/hello-world-test:$TAG .
+        docker push ridhwan31/hello-world-test:$TAG
+
+       
+    - name: Deploy to Nomad
+      env:
+        NOMAD_ADDR: ${{ secrets.NOMAD_ADDR }}
+        NOMAD_TOKEN: ${{ secrets.NOMAD_TOKEN }}
+      run: |
+        TAG=${{ steps.set-tag-name.outputs.tag }}
+        echo "Deploying to Nomad with TAG=${TAG}"
+
+        # Use Nomad CLI to run the job
+        nomad job run -var="TAG=${TAG}" my-app.nomad
