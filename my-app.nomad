@@ -1,6 +1,10 @@
 job "hello-world" {
   type = "service"
 
+      variable "TAG" {
+    type = string
+  }
+
   group "hello-world-web" {
     count = 1
     network {
@@ -33,8 +37,7 @@ job "hello-world" {
         ports = ["web"]
       }
     }
-      variable "TAG" {
-    type = string
+
   }
-  }
+
 }
