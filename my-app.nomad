@@ -11,7 +11,7 @@ job "hello-world" {
 
     network {
       port "web" {
-        static = 8000
+        static = 3000
       }
     }
 
@@ -27,7 +27,7 @@ job "hello-world" {
         "traefik.http.routers.helloworld.service=helloworld-service",
         "traefik.http.routers.helloworld.tls=true",
         "traefik.http.routers.helloworld.tls.certresolver=roketinapp",
-        "traefik.http.services.helloworld-service.loadbalancer.server.port=8000"
+        "traefik.http.services.helloworld-service.loadbalancer.server.port=3000"
       ]
     }
 
