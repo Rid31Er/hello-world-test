@@ -1,11 +1,12 @@
   # Declare variables at the job level
   variable "TAG" {
     type = var
+}
 
 job "hello-world" {
   type = "service"
 
-  }
+  
 
   group "hello-world-web" {
     count = 1
