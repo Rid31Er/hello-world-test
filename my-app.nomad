@@ -3,7 +3,7 @@
     type = string
 }
 
-job "hello-world" {
+job "hello-world:${var.TAG}" {
   type = "service"
 
   
