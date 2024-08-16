@@ -1,6 +1,6 @@
   # Declare variables at the job level
   variable "TAG" {
-    type = var
+    type = string
 }
 
 job "hello-world" {
