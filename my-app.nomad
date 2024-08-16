@@ -3,7 +3,7 @@
     type = string
 }
 
-job "hello-world-{{TAG}}" {
+job "hello-world" {
   type = "service"
 
   
