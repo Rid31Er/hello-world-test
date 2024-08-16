@@ -37,7 +37,7 @@ job "hello-world" {
       driver = "docker"
 
       config {
-        image = "ridhwan31/hello-world-test:${TAG}"
+        image = "ridhwan31/hello-world-test:${var.TAG}"
         ports = ["web"]
       }
     }
